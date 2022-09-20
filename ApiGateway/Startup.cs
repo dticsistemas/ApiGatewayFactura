@@ -35,7 +35,7 @@ namespace ApiGateway
 
             services.AddOcelot()
                 .AddDelegatingHandler<LogDelegatingHandler>(true)
-                .AddSingletonDefinedAggregator< PostUsuarioAggregator>();
+                .AddSingletonDefinedAggregator< DetailsFlightsPassengersInvoiceAggregator>();
 
 
 

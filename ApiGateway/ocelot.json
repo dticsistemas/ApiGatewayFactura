@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/users",
+      "DownstreamPathTemplate": "/passengers",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -11,10 +11,10 @@
       ],
       "UpstreamPathTemplate": "/api/users",
       "UpstreamHttpMethod": [ "Get" ],
-      "Key": "usuarios"
+      "Key": "passenger"
     },
     {
-      "DownstreamPathTemplate": "/posts",
+      "DownstreamPathTemplate": "/flights",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -22,12 +22,12 @@
           "Port": 443
         }
       ],
-      "UpstreamPathTemplate": "/api/posts",
+      "UpstreamPathTemplate": "/api/flights",
       "UpstreamHttpMethod": [ "Get" ],
-      "Key": "posts"
+      "Key": "flights"
     },
     {
-      "DownstreamPathTemplate": "/users/{id}/posts",
+      "DownstreamPathTemplate": "/invoices",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -35,17 +35,17 @@
           "Port": 443
         }
       ],
-      "UpstreamPathTemplate": "/api/posts_user/{id}",
+      "UpstreamPathTemplate": "/api/invoices",
       "UpstreamHttpMethod": [ "Get" ],
-      "Key": "articuloPost"
-    }
+      "Key": "invoice"
+    }    
   ],
 
   "Aggregates": [
     {
-      "UpstreamPathTemplate": "/api/user-posts",
-      "RouteKeys": [ "usuarios", "posts" ],
-      "Aggregator": "PostUsuarioAggregator"
+      "UpstreamPathTemplate": "/api/details-invoice",
+      "RouteKeys": [ "passenger", "flights", "invoices" ],
+      "Aggregator": "DetailsFlightsPassengersInvoiceAggregator"
     },
     
   ],

@@ -1,6 +1,6 @@
 ﻿namespace ApiGateway.Dto
 {
-    public class PostDto
+    public class FlighttDto
     {
         public int userId { get; set; }
         public int id { get; set; }

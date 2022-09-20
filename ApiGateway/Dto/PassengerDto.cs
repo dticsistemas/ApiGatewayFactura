@@ -1,6 +1,6 @@
 ﻿namespace ApiGateway.Dto
 {
-    public class UsuarioDto
+    public class PassengerDto
     {
         public int id { get; set; }
         public string name { get; set; }

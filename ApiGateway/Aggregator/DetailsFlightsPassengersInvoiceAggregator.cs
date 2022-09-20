@@ -13,12 +13,13 @@ using System.Net.Http.Headers;
 
 namespace ApiGateway.Aggregator
 {
-    public class PostUsuarioAggregator : IDefinedAggregator
+    public class DetailsFlightsPassengersInvoiceAggregator : IDefinedAggregator
     {    
         public async Task<DownstreamResponse> Aggregate(List<HttpContext> responses)
         {
-            List<PostDto> articuloPosts = new List<PostDto>();
-            List<UsuarioDto> users = new List<UsuarioDto>();
+            List<FlighttDto> flights = new List<FlighttDto>();
+            List<PassengerDto> passengers = new List<PassengerDto>();
+            List<InvoiceDto> invoices = new List<InvoiceDto>();
 
             foreach (var response in responses)
             {
@@ -26,54 +27,80 @@ namespace ApiGateway.Aggregator
                 DownstreamResponse downstreamResponse = (DownstreamResponse)response.Items["DownstreamResponse"];
                 byte[] downstreamResponseContent = await downstreamResponse.Content.ReadAsByteArrayAsync();
 
-                if (downStreamRouteKey == "posts")
+                if (downStreamRouteKey == "flights")
                 {
-                    articuloPosts = JsonConvert.DeserializeObject<List<PostDto>>(DeCompressBrotli(downstreamResponseContent));
+                    flights = JsonConvert.DeserializeObject<List<FlighttDto>>(DeCompressBrotli(downstreamResponseContent));
                 }
 
-                if (downStreamRouteKey == "usuarios")
+                if (downStreamRouteKey == "passengers")
                 {
-                    Console.WriteLine("Request: {0}", "Ingresando a Usuarios");
-                    users = JsonConvert.DeserializeObject<List<UsuarioDto>>(DeCompressBrotli(downstreamResponseContent));
-                    Console.WriteLine("Request: {0}", users.ToString());
+                    Console.WriteLine("Request: {0}", "Ingresando a PasajerosUsuarios");
+                    passengers = JsonConvert.DeserializeObject<List<PassengerDto>>(DeCompressBrotli(downstreamResponseContent));
+                    Console.WriteLine("Request: {0}", passengers.ToString());
+
+                }
+                if (downStreamRouteKey == "invoices")
+                {
+                    Console.WriteLine("Request: {0}", "Ingresando a Invoices");
+                    invoices = JsonConvert.DeserializeObject<List<InvoiceDto>>(DeCompressBrotli(downstreamResponseContent));
+                    Console.WriteLine("Request: {0}", passengers.ToString());
 
                 }
             }
 
-            return PostByUsername(articuloPosts, users);
+            return DetailsFlightsPassengersInvoice(flights,passengers,invoices);
 
         }
-        public DownstreamResponse PostByUsername(List<PostDto> articuloPosts, List<UsuarioDto> users)
+        public DownstreamResponse DetailsFlightsPassengersInvoice(List<FlighttDto> flights, List<PassengerDto> passengers, List<InvoiceDto> invoices)
         {
 
             var arrayUsers = new JArray();            
             var contador = 0;
             
-            foreach (var usuario in users)
+            foreach (var invoice in invoices)
             {
-                Console.WriteLine(usuario.id);
-                Console.WriteLine(usuario.name);
-                Console.WriteLine(usuario.username);
-                Console.WriteLine(usuario.email);
+                Console.WriteLine(invoice.id);
+                Console.WriteLine(invoice.title);
+                //Console.WriteLine(invoice.title);
+                /*
                 var postusers = new JArray();
                 var userId = usuario.id;
-                foreach (var post in articuloPosts)
+                */
+                foreach (var flight in flights)
                 {
 
-                    Console.WriteLine(post.id);
-                    Console.WriteLine(post.title);
-                    Console.WriteLine(post.body);
-                    if (post.userId == userId)
+                    //Console.WriteLine(post.id);
+                    //Console.WriteLine(post.title);
+                    //Console.WriteLine(post.body);
+                   /* if (post.userId == userId)
                     {
                         var ObjPost = new JObject(
                                        new JProperty("id", post.id),
                                        new JProperty("title", post.title),
                                        new JProperty("body", post.body));
                         postusers.Add(ObjPost);
-                    }
+                    }*/
 
 
                 }
+                foreach (var passenger in passengers)
+                {
+
+                    //Console.WriteLine(post.id);
+                    //Console.WriteLine(post.title);
+                    //Console.WriteLine(post.body);
+                    /* if (post.userId == userId)
+                     {
+                         var ObjPost = new JObject(
+                                        new JProperty("id", post.id),
+                                        new JProperty("title", post.title),
+                                        new JProperty("body", post.body));
+                         postusers.Add(ObjPost);
+                     }*/
+
+
+                }
+                /*
                 var ObjUser = new JObject(
                                new JProperty("id", usuario.id),
                                new JProperty("name", usuario.name),
@@ -83,8 +110,10 @@ namespace ApiGateway.Aggregator
 
                 
                 arrayUsers.Add(ObjUser);
+                */
                 contador++; 
                 Console.WriteLine(contador + " -------");
+
             }            
 
             var objectPostsUsersString = JsonConvert.SerializeObject(arrayUsers);
