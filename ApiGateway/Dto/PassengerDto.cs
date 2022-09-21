@@ -2,10 +2,10 @@
 {
     public class PassengerDto
     {
-        public int id { get; set; }
+        public string id { get; set; }
         public string name { get; set; }
-        public string username { get; set; }
-        public string email { get; set; }
+        public string lastName { get; set; }
+        public string passport { get; set; }
 
         //public ArticuloPostDto ArticuloPostDto { get; set; }
 

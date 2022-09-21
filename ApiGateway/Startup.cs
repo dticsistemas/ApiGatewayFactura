@@ -40,7 +40,9 @@ namespace ApiGateway
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+           // services.AddControllers();
             services.AddEndpointsApiExplorer();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ejemplo Api Gateway", Version = "v1" });
@@ -48,14 +50,12 @@ namespace ApiGateway
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {           
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ejemplo Api Gateway v1"));
             }
-
             app.UseOcelot().Wait();
 
         }

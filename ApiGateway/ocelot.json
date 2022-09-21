@@ -1,12 +1,12 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/passengers",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/passengers",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "jsonplaceholder.typicode.com",
-          "Port": 443
+          "Host": "68.183.28.27",
+          "Port": 7105
         }
       ],
       "UpstreamPathTemplate": "/api/passengers",
@@ -14,12 +14,12 @@
       "Key": "passengers"
     },
     {
-      "DownstreamPathTemplate": "/flights",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/flights",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "jsonplaceholder.typicode.com",
-          "Port": 443
+          "Host": "68.183.28.27",
+          "Port": 7105
         }
       ],
       "UpstreamPathTemplate": "/api/flights",
@@ -27,12 +27,12 @@
       "Key": "flights"
     },
     {
-      "DownstreamPathTemplate": "/invoices",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/invoices",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "jsonplaceholder.typicode.com",
-          "Port": 443
+          "Host": "68.183.28.27",
+          "Port": 7105
         }
       ],
       "UpstreamPathTemplate": "/api/invoices",
@@ -43,7 +43,7 @@
 
   "Aggregates": [
     {
-      "UpstreamPathTemplate": "/api/detailsinvoice/",
+      "UpstreamPathTemplate": "/api/detailsinvoice",
       "RouteKeys": [ "passengers", "flights", "invoices" ],
       "UpstreamHttpMethod": [ "Get" ],
       "Aggregator": "DetailsFlightsPassengersInvoiceAggregator"
@@ -51,6 +51,6 @@
     
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:7265/"
+    "BaseUrl": "http://68.183.28.27:7265/"
   }
 }
